@@ -274,6 +274,15 @@ def handle_text(message):
     user_id = message.from_user.id
     text = message.text
 
+    # СНАЧАЛА обрабатываем "Назад" и "Назад к техникам" — работают ВСЕГДА
+    if text == "🔙 Назад":
+        bot.send_message(chat_id, "Главное меню 👇", reply_markup=main_menu())
+        return
+    elif text == "🔙 Назад к техникам":
+        bot.send_message(chat_id, "Выберите раздел 👇", reply_markup=techniki_menu())
+        return
+
+    # Проверка подписки
     if not check_subscription(user_id):
         subscribe_text = (
             "🔒 ДОСТУП ЗАКРЫТ\n\n"
@@ -284,7 +293,7 @@ def handle_text(message):
         bot.send_message(chat_id, subscribe_text, reply_markup=subscribe_button())
         return
 
-    # ---- ИНФОРМАЦИЯ О ПСИХОЛОГЕ ----
+    # ---- ИНФОРМАЦИЯ О ПСИХОЛОГЕ (КОРОТКИЙ ТЕКСТ) ----
     if text == "ℹ️ Информация о психологе":
         info_text = (
             "Всех приветствую!\n\n"
@@ -310,10 +319,22 @@ def handle_text(message):
         except FileNotFoundError:
             bot.send_message(chat_id, info_text, reply_markup=back_button())
 
-    # ---- ЗАПРОСЫ ----
+    # ---- ЧЕМ МОГУ БЫТЬ ПОЛЕЗНА (ДЛИННЫЙ ТЕКСТ) ----
     elif text == "📋 С какими запросами работаю":
         zapros_text = (
-            "Основные запросы, с которыми я работаю:\n\n"
+            "Здравствуйте, меня зовут Алла.\n\n"
+            "Я дипломированный психолог-специалист.\n"
+            "В настоящее время я продолжаю повышать свою квалификацию в одной из лучших Европейских Академий, и очень люблю коммуницировать с людьми.\n"
+            "Я настоящий сертифицированный профессионал в гипнотических техниках Милтона Эриксона.\n\n"
+            "Личный приём веду в городе Иваново, также есть возможность получить консультацию онлайн из любой точки мира.\n"
+            "Моя цель - за короткое время помочь вам в любой жизненной ситуации.\n"
+            "Я искренне заинтересована в результате своих клиентов.\n\n"
+            "Вы чувствуете что в вашей жизни что-то не так?\n"
+            "Что-то мешает вам наслаждаться каждым её днём?\n\n"
+            "У вас есть возможность изменить это прямо здесь и сейчас!\n\n"
+            "Ваш психолог - проводник к искреннему счастью.\n"
+            "Позвольте себе сделать этот самый первый шаг к вашим изменениям.\n\n"
+            "Основные запросы, с которыми я работаю:\n"
             "1. Работа с убеждениями\n"
             "2. Работа с целями\n"
             "3. Нежелательное поведение, вредные привычки\n"
@@ -350,9 +371,6 @@ def handle_text(message):
     elif text == "🧘 Бесплатные техники":
         bot.send_message(chat_id, "Выберите раздел 👇", reply_markup=techniki_menu())
 
-    elif text == "🔙 Назад к техникам":
-        bot.send_message(chat_id, "Выберите раздел 👇", reply_markup=techniki_menu())
-
     # ---- ЧАСТЫЕ ВОПРОСЫ ----
     elif text == "❓ Частые вопросы":
         faq_text = (
@@ -377,10 +395,6 @@ def handle_text(message):
         )
         bot.send_message(chat_id, contacts_text, reply_markup=contacts_menu())
         bot.send_message(chat_id, "📞", reply_markup=back_button())
-
-    # ---- НАЗАД ----
-    elif text == "🔙 Назад":
-        bot.send_message(chat_id, "Главное меню 👇", reply_markup=main_menu())
 
     else:
         bot.send_message(chat_id, "Используйте кнопки меню 👆", reply_markup=main_menu())
