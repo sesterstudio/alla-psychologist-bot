@@ -363,11 +363,14 @@ def handle_text(message):
             "✨ Приятного прослушивания!"
         )
         bot.send_message(chat_id, gift_text, reply_markup=back_button())
-        try:
-            with open("podarok_1.mp3", "rb") as audio:
-                bot.send_audio(chat_id, audio)
-        except FileNotFoundError:
-            bot.send_message(chat_id, "⚠️ Файл podarok_1.mp3 не найден.")
+        
+        # Отправляем оба MP3
+        for i in range(1, 3):
+            try:
+                with open(f"podarok_{i}.mp3", "rb") as audio:
+                    bot.send_audio(chat_id, audio)
+            except FileNotFoundError:
+                bot.send_message(chat_id, f"⚠️ Файл podarok_{i}.mp3 не найден.")
 
     # ---- ТЕХНИКИ ----
     elif text == "🧘 Бесплатные техники":
