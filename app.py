@@ -360,16 +360,18 @@ def handle_text(message):
             "2️⃣ Авторская медитация от Аллы Психологини.\n"
             "Эту медитацию я написала сама во время обучения в Питерской академии коучинга. Она создана для глубокого расслабления и внутренней гармонии.\n\n"
             "✨ Приятного прослушивания!"
-        )
-        bot.send_message(chat_id, gift_text, reply_markup=back_button())
-        
         # Отправляем оба MP3
-        for i in range(1, 3):
-            try:
-                with open(f"podarok_{i}.mp3", "rb") as audio:
-                    bot.send_audio(chat_id, audio)
-            except FileNotFoundError:
-                bot.send_message(chat_id, f"⚠️ Файл podarok_{i}.mp3 не найден.")
+        try:
+            with open("podarok_1.mp3", "rb") as audio:
+                bot.send_audio(chat_id, audio)
+        except FileNotFoundError:
+            bot.send_message(chat_id, "⚠️ Файл podarok_1.mp3 не найден.")
+
+        try:
+            with open("podarok_2.mp3", "rb") as audio:
+                bot.send_audio(chat_id, audio, duration=480)
+        except FileNotFoundError:
+            bot.send_message(chat_id, "⚠️ Файл podarok_2.mp3 не найден.")
 
     # ---- ТЕХНИКИ ----
     elif text == "🧘 Бесплатные техники":
