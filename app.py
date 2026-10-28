@@ -701,7 +701,7 @@ def handle_callback(call):
 # ================== ЗАПУСК ==================
 if __name__ == "__main__":
     print("🤖 Бот запущен в облаке!")
-    bot_thread = threading.Thread(target=bot.polling, kwargs={'none_stop': True})
+    bot_thread = threading.Thread(target=bot.infinity_polling, kwargs={'timeout': 20, 'long_polling_timeout': 20})
     bot_thread.start()
     port = int(os.environ.get("PORT", 5000))
     server.run(host="0.0.0.0", port=port)
