@@ -359,22 +359,33 @@ def handle_text(message):
             "А потом убери. Когда появится желание — перечитай снова.\n\n"
             "2️⃣ Авторская медитация от Аллы Психологини.\n"
             "Эту медитацию я написала сама во время обучения в Питерской академии коучинга. Она создана для глубокого расслабления и внутренней гармонии.\n\n"
+            "3️⃣ Техника сканирования тела.\n"
+            "Эта практика помогает очищению и сканированию всего тела, нахождению в нём негативной энергии и её полному очищению.\n\n"
             "✨ Приятного прослушивания!"
         )
         bot.send_message(chat_id, gift_text, reply_markup=back_button())
         
-        # Отправляем оба MP3
+        # 1. Отправляем первый MP3
         try:
             with open("podarok_1.mp3", "rb") as audio:
                 bot.send_audio(chat_id, audio)
         except FileNotFoundError:
             bot.send_message(chat_id, "⚠️ Файл podarok_1.mp3 не найден.")
 
+        # 2. Отправляем второй MP3 (указываем длительность 480 сек = 8 минут)
         try:
             with open("podarok_2.mp3", "rb") as audio:
                 bot.send_audio(chat_id, audio, duration=480)
         except FileNotFoundError:
             bot.send_message(chat_id, "⚠️ Файл podarok_2.mp3 не найден.")
+
+        # 3. Отправляем третий MP3 
+        try:
+            with open("podarok_3.mp3", "rb") as audio:
+                # Если у третьего файла не будет показываться время, добавь сюда duration=... (в секундах)
+                bot.send_audio(chat_id, audio) 
+        except FileNotFoundError:
+            bot.send_message(chat_id, "⚠️ Файл podarok_3.mp3 не найден.")
 
     # ---- ТЕХНИКИ ----
     elif text == "🧘 Бесплатные техники":
